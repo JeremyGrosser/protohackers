@@ -1,0 +1,26 @@
+name = "miniserver"
+description = ""
+version = "0.1.0-dev"
+
+authors = ["Jeremy Grosser"]
+maintainers = ["Jeremy Grosser <jeremy@synack.me>"]
+maintainers-logins = ["JeremyGrosser"]
+licenses = "MIT OR Apache-2.0"
+website = ""
+tags = []
+
+executables = ["miniserver"]
+
+#[[actions]]
+#type = "post-build"
+#command = ["gnatprove", "-P", "miniserver.gpr"]
+
+[[depends-on]]
+gnatprove = "^12.1.1"
+epoll = "~0.1.1"
+
+[[pins]]
+epoll = { path='../epoll-ada' }
+
+[build-profiles]
+"*" = "development"
