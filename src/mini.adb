@@ -83,7 +83,9 @@ package body Mini is
                 Is_Server  => False));
             Control (EP, Client, Add, Client_Event'Access);
          elsif not Context.Is_Server then
-            if Event.Flags.Readable then
+            if Event.Flags.Peer_Shutdown or else Event.Flags.Error or else Event.Flags.Hang_Up then
+               Close_Socket (Context.Socket);
+            elsif Event.Flags.Readable then
                loop
                   Receive_Socket (Context.Socket, Data, Last);
                   On_Receive.all (Context.Socket, Data, Last);

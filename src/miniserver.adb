@@ -13,7 +13,6 @@ procedure Miniserver is
    is
       pragma Unreferenced (Socket);
    begin
-      Put ("Connection from ");
       Put (GNAT.Sockets.Image (Addr));
       New_Line;
    end On_Connect;
@@ -23,11 +22,15 @@ procedure Miniserver is
        Item   : Ada.Streams.Stream_Element_Array;
        Last   : Ada.Streams.Stream_Element_Offset)
    is
-      pragma Unreferenced (Socket);
-      Text : String (1 .. Natural (Last))
-         with Import, Address => Item'Address;
+      use Ada.Streams;
+      First : Stream_Element_Offset := Item'First;
+      Sent  : Stream_Element_Offset;
    begin
-      Put_Line (Text);
+      loop
+         GNAT.Sockets.Send_Socket (Socket, Item (First .. Last), Sent);
+         First := First + Sent + 1;
+         exit when First >= Last;
+      end loop;
    end On_Receive;
 begin
    loop
