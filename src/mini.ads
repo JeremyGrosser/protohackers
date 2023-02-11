@@ -4,7 +4,7 @@ with Epoll;
 
 package Mini is
    Listen_Backlog : constant := 128;
-   Receive_Length : constant := 4096;
+   Receive_Length : constant := 65536;
 
    function Bind
       (Name : String;
