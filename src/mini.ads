@@ -6,10 +6,10 @@ package Mini is
    Listen_Backlog : constant := 128;
    Receive_Length : constant := 65536;
 
-   function Bind
-      (Name : String;
-       Port : String)
-       return Epoll.Epoll_Descriptor;
+   procedure Bind
+      (EP   : Epoll.Epoll_Descriptor;
+       Name : String;
+       Port : String);
    --  Resolves Name and Port into local addresses, creates a socket for each
    --  address, calls bind and listen, then adds the socket to an epoll
    --  descriptor. Returns a single epoll descriptor with all the sockets

@@ -18,6 +18,7 @@ executables = ["main"]
 [[depends-on]]
 gnatprove = "^12.1.1"
 epoll = "~0.1.1"
+json = "^5.0.3"
 
 [[pins]]
 epoll = { path='../epoll-ada' }
@@ -25,5 +26,5 @@ epoll = { path='../epoll-ada' }
 [build-profiles]
 "*" = "release"
 
-[[depends-on]]
-json = "^5.0.3"
+[build-switches]
+release.optimization = ["-O3", "-gnatn", "-gnatp", "-march=native"]

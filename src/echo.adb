@@ -32,8 +32,9 @@ package body Echo is
    end On_Receive;
 
    procedure Run is
-      EP : constant Epoll.Epoll_Descriptor := Mini.Bind ("", "3000");
+      EP : constant Epoll.Epoll_Descriptor := Epoll.Create;
    begin
+      Mini.Bind (EP, "", "3000");
       loop
          Mini.Serve
             (EP         => EP,

@@ -14,17 +14,16 @@ package body Mini is
    function To_Event_Context is new Ada.Unchecked_Conversion
       (Interfaces.Unsigned_64, Event_Context);
 
-   function Bind
-      (Name    : String;
-       Port    : String)
-       return Epoll.Epoll_Descriptor
+   procedure Bind
+      (EP   : Epoll.Epoll_Descriptor;
+       Name : String;
+       Port : String)
    is
       use GNAT.Sockets;
       use Interfaces;
       use Epoll;
 
       Addrs  : constant Address_Info_Array := Get_Address_Info (Name, Port, Passive => True);
-      EP     : constant Epoll_Descriptor := Epoll.Create;
       Socket : Socket_Type;
       Event  : aliased Epoll_Event :=
          (Data => -1,
@@ -46,7 +45,6 @@ package body Mini is
             Control (EP, Socket, Add, Event'Access);
          end if;
       end loop;
-      return EP;
    end Bind;
 
    procedure Serve
