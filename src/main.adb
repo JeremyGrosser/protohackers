@@ -3,6 +3,7 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Primal;
 with Echo;
 with Asset;
+with Chat;
 
 procedure Main is
 begin
@@ -18,6 +19,8 @@ begin
       Primal.Run;
    elsif Argument (1) = "asset" then
       Asset.Run;
+   elsif Argument (1) = "chat" then
+      Chat.Run;
    else
       Put_Line (Standard_Error, "Unknown service: " & Argument (1));
       Set_Exit_Status (1);

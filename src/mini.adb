@@ -28,8 +28,9 @@ package body Mini is
       Event  : aliased Epoll_Event :=
          (Data => -1,
           Flags =>
-            (Readable => True,
-             others   => False));
+            (Readable  => True,
+             Exclusive => True,
+             others    => False));
    begin
       for Addr of Addrs loop
          if Name = "" and then Addr.Addr.Family = Family_Inet then
