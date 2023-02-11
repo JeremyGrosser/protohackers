@@ -184,7 +184,7 @@ package body Primal is
          Mini.Serve
             (EP         => EP,
              On_Connect => On_Connect'Access,
-             On_Receive => On_Receive'Unrestricted_Access,
+             On_Receive => On_Receive'Access,
              Max_Events => 64);
       end loop;
    end Run;

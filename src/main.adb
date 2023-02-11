@@ -2,6 +2,7 @@ with Ada.Command_Line; use Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Primal;
 with Echo;
+with Asset;
 
 procedure Main is
 begin
@@ -15,6 +16,8 @@ begin
       Echo.Run;
    elsif Argument (1) = "primal" then
       Primal.Run;
+   elsif Argument (1) = "asset" then
+      Asset.Run;
    else
       Put_Line (Standard_Error, "Unknown service: " & Argument (1));
       Set_Exit_Status (1);

@@ -24,7 +24,11 @@ json = "^5.0.3"
 epoll = { path='../epoll-ada' }
 
 [build-profiles]
-"*" = "release"
+"*" = "development"
 
 [build-switches]
 release.optimization = ["-O3", "-gnatn", "-gnatp", "-march=native"]
+development.optimization = ["-Og"]
+
+[[depends-on]]
+chests = "~0.1.1"
