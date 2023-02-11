@@ -5,11 +5,12 @@ project Miniserver is
    for Object_Dir use "obj/" & Miniserver_Config.Build_Profile;
    for Create_Missing_Dirs use "True";
    for Exec_Dir use "bin";
-   for Main use ("miniserver.adb");
+   for Main use ("main.adb");
 
    package Compiler is
       for Default_Switches ("Ada") use Miniserver_Config.Ada_Compiler_Switches & (
-         "-gnatyM120"
+         "-gnatyM120",
+         "-gnat2020"
       );
    end Compiler;
 

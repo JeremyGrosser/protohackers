@@ -1,11 +1,8 @@
 with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Streams;
-with GNAT.Sockets;
 with Epoll;
 with Mini;
 
-procedure Miniserver is
-   EP : constant Epoll.Epoll_Descriptor := Mini.Bind ("", "3000");
+package body Echo is
 
    procedure On_Connect
       (Socket : GNAT.Sockets.Socket_Type;
@@ -13,6 +10,7 @@ procedure Miniserver is
    is
       pragma Unreferenced (Socket);
    begin
+      Put ("Connection from ");
       Put (GNAT.Sockets.Image (Addr));
       New_Line;
    end On_Connect;
@@ -32,8 +30,17 @@ procedure Miniserver is
          exit when First >= Last;
       end loop;
    end On_Receive;
-begin
-   loop
-      Mini.Serve (EP, On_Connect'Unrestricted_Access, On_Receive'Unrestricted_Access, 32);
-   end loop;
-end Miniserver;
+
+   procedure Run is
+      EP : constant Epoll.Epoll_Descriptor := Mini.Bind ("", "3000");
+   begin
+      loop
+         Mini.Serve
+            (EP         => EP,
+             On_Connect => On_Connect'Access,
+             On_Receive => On_Receive'Unrestricted_Access,
+             Max_Events => 32);
+      end loop;
+   end Run;
+
+end Echo;

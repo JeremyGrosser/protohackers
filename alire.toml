@@ -9,7 +9,7 @@ licenses = "MIT OR Apache-2.0"
 website = ""
 tags = []
 
-executables = ["miniserver"]
+executables = ["main"]
 
 #[[actions]]
 #type = "post-build"
@@ -24,3 +24,6 @@ epoll = { path='../epoll-ada' }
 
 [build-profiles]
 "*" = "development"
+
+[[depends-on]]
+json = "^5.0.3"
