@@ -4,6 +4,7 @@ with Primal;
 with Echo;
 with Asset;
 with Chat;
+with KVStore;
 
 procedure Main is
 begin
@@ -21,6 +22,8 @@ begin
       Asset.Run;
    elsif Argument (1) = "chat" then
       Chat.Run;
+   elsif Argument (1) = "kvstore" then
+      KVStore.Run;
    else
       Put_Line (Standard_Error, "Unknown service: " & Argument (1));
       Set_Exit_Status (1);
