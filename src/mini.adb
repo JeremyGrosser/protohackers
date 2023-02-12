@@ -56,13 +56,6 @@ package body Mini is
    is
       use GNAT.Sockets;
       use Ada.Streams;
-      use Epoll;
-
-      Client_Event : aliased Epoll_Event :=
-         (Data => 0,
-          Flags =>
-            (Readable => True,
-             others   => False));
 
       Client   : Socket_Type;
       Addr     : Sock_Addr_Type;
@@ -76,11 +69,7 @@ package body Mini is
          if Context.Is_Server and then Event.Flags.Readable then
             Accept_Socket (Context.Socket, Client, Addr);
             On_Connect.all (Client, Addr);
-
-            Client_Event.Data := From_Event_Context (Event_Context'
-               (Socket     => Client,
-                Is_Server  => False));
-            Control (EP, Client, Add, Client_Event'Access);
+            Subscribe (EP, Client);
          elsif not Context.Is_Server then
             if Event.Flags.Peer_Shutdown or else Event.Flags.Error or else Event.Flags.Hang_Up then
                Close_Socket (Context.Socket);
@@ -97,4 +86,21 @@ package body Mini is
          end if;
       end loop;
    end Serve;
+
+   procedure Subscribe
+      (EP : Epoll.Epoll_Descriptor;
+       Socket : GNAT.Sockets.Socket_Type)
+   is
+      use Epoll;
+      Event : aliased Epoll_Event :=
+         (Data => From_Event_Context
+            (Event_Context'
+               (Socket     => Socket,
+                Is_Server  => False)),
+          Flags =>
+            (Readable => True,
+             others   => False));
+   begin
+      Control (EP, Socket, Add, Event'Access);
+   end Subscribe;
 end Mini;

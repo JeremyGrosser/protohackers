@@ -5,6 +5,7 @@ with Echo;
 with Asset;
 with Chat;
 with KVStore;
+with MITM;
 
 procedure Main is
 begin
@@ -24,6 +25,8 @@ begin
       Chat.Run;
    elsif Argument (1) = "kvstore" then
       KVStore.Run;
+   elsif Argument (1) = "mitm" then
+      MITM.Run;
    else
       Put_Line (Standard_Error, "Unknown service: " & Argument (1));
       Set_Exit_Status (1);

@@ -30,4 +30,8 @@ package Mini is
        On_Receive : Receive_Callback;
        Max_Events : Positive);
 
+   procedure Subscribe
+      (EP      : Epoll.Epoll_Descriptor;
+       Socket  : GNAT.Sockets.Socket_Type);
+
 end Mini;

@@ -10,7 +10,8 @@ project Miniserver is
    package Compiler is
       for Default_Switches ("Ada") use Miniserver_Config.Ada_Compiler_Switches & (
          "-gnatyM120",
-         "-gnat2020"
+         "-gnat2020",
+         "-gnatwJ"
       );
    end Compiler;
 
