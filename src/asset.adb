@@ -189,7 +189,7 @@ package body Asset is
 
       MB : Message_Bytes;
       Error : Boolean;
-      RX : Socket_Buffer_Maps.Reference_Type := Socket_Buffer_Maps.Reference (Buffers, Socket);
+      RX : constant Socket_Buffer_Maps.Reference_Type := Socket_Buffer_Maps.Reference (Buffers, Socket);
    begin
       if Last = 0 then
          Socket_Int32_Maps.Delete (DB, Socket);
